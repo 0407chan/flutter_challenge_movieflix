@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:movieflix/models/movie.dart';
+import 'package:movieflix/screens/movie_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +21,15 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     fetchMovies();
+  }
+
+  void toMovieDetailScreen(Movie movie) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MovieDetailScreen(movie: movie),
+      ),
+    );
   }
 
   Future<void> fetchMovies() async {
@@ -86,32 +96,35 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(
                       left: 16,
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                        'https://image.tmdb.org/t/p/w300${popularMovies[index].posterPath}',
-                        height: 220,
-                        width: 320 + 16,
-                        fit: BoxFit.cover,
-                        cacheHeight: 440,
-                        cacheWidth: 320 + 16,
-                        alignment: Alignment.topCenter,
-                        semanticLabel: popularMovies[index].title,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: Colors.grey,
-                            width: 300,
-                            height: 200,
-                            child: Center(
-                              child: Text(
-                                popularMovies[index].title,
-                                style: const TextStyle(
-                                  fontSize: 18,
+                    child: GestureDetector(
+                      onTap: () => toMovieDetailScreen(popularMovies[index]),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.network(
+                          'https://image.tmdb.org/t/p/w300${popularMovies[index].posterPath}',
+                          height: 220,
+                          width: 320 + 16,
+                          fit: BoxFit.cover,
+                          cacheHeight: 440,
+                          cacheWidth: 320 + 16,
+                          alignment: Alignment.topCenter,
+                          semanticLabel: popularMovies[index].title,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: Colors.grey,
+                              width: 300,
+                              height: 200,
+                              child: Center(
+                                child: Text(
+                                  popularMovies[index].title,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
                     ),
                   );
@@ -141,51 +154,54 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(
                       left: 16,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.network(
-                            'https://image.tmdb.org/t/p/w200${nowInCinemas[index].posterPath}',
-                            height: 160,
-                            width: 160,
-                            fit: BoxFit.cover,
-                            cacheHeight: 240,
-                            cacheWidth: 160,
-                            alignment: Alignment.topCenter,
-                            semanticLabel: nowInCinemas[index].title,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey,
-                                width: 160,
-                                height: 160,
-                                child: Center(
-                                  child: Text(
-                                    nowInCinemas[index].title,
-                                    style: const TextStyle(
-                                      fontSize: 18,
+                    child: GestureDetector(
+                      onTap: () => toMovieDetailScreen(nowInCinemas[index]),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.network(
+                              'https://image.tmdb.org/t/p/w200${nowInCinemas[index].posterPath}',
+                              height: 160,
+                              width: 160,
+                              fit: BoxFit.cover,
+                              cacheHeight: 240,
+                              cacheWidth: 160,
+                              alignment: Alignment.topCenter,
+                              semanticLabel: nowInCinemas[index].title,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: Colors.grey,
+                                  width: 160,
+                                  height: 160,
+                                  child: Center(
+                                    child: Text(
+                                      nowInCinemas[index].title,
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        SizedBox(
-                          width: 160,
-                          child: Text(
-                            nowInCinemas[index].title,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                                );
+                              },
                             ),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 8),
+                          SizedBox(
+                            width: 160,
+                            child: Text(
+                              nowInCinemas[index].title,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -213,51 +229,54 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(
                       left: 16,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.network(
-                            'https://image.tmdb.org/t/p/w200${comingSoon[index].posterPath}',
-                            height: 160,
-                            width: 160,
-                            fit: BoxFit.cover,
-                            cacheHeight: 240,
-                            cacheWidth: 160,
-                            alignment: Alignment.topCenter,
-                            semanticLabel: comingSoon[index].title,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey,
-                                width: 160,
-                                height: 160,
-                                child: Center(
-                                  child: Text(
-                                    comingSoon[index].title,
-                                    style: const TextStyle(
-                                      fontSize: 18,
+                    child: GestureDetector(
+                      onTap: () => toMovieDetailScreen(comingSoon[index]),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.network(
+                              'https://image.tmdb.org/t/p/w200${comingSoon[index].posterPath}',
+                              height: 160,
+                              width: 160,
+                              fit: BoxFit.cover,
+                              cacheHeight: 240,
+                              cacheWidth: 160,
+                              alignment: Alignment.topCenter,
+                              semanticLabel: comingSoon[index].title,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: Colors.grey,
+                                  width: 160,
+                                  height: 160,
+                                  child: Center(
+                                    child: Text(
+                                      comingSoon[index].title,
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        SizedBox(
-                          width: 160,
-                          child: Text(
-                            nowInCinemas[index].title,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                                );
+                              },
                             ),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 8),
+                          SizedBox(
+                            width: 160,
+                            child: Text(
+                              nowInCinemas[index].title,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
