@@ -73,14 +73,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(
               height: 240,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
+              child: PageView.builder(
+                controller: PageController(
+                  viewportFraction:
+                      (320 + 16) / MediaQuery.of(context).size.width,
+                ),
+                pageSnapping: true,
+                padEnds: false,
                 itemCount: popularMovies.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: EdgeInsets.only(
-                      left: index == 0 ? 16 : 0,
-                      right: 16,
+                    padding: const EdgeInsets.only(
+                      left: 16,
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
@@ -123,15 +127,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(
-              height: 160 + 32 + 50,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
+              height: 220,
+              child: PageView.builder(
+                controller: PageController(
+                  viewportFraction:
+                      (160 + 16) / MediaQuery.of(context).size.width,
+                ),
+                pageSnapping: true,
+                padEnds: false,
                 itemCount: nowInCinemas.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: EdgeInsets.only(
-                      left: index == 0 ? 16 : 0,
-                      right: 16,
+                    padding: const EdgeInsets.only(
+                      left: 16,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,14 +200,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(
               height: 160 + 32 + 50,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
+              child: PageView.builder(
+                controller: PageController(
+                  viewportFraction:
+                      (160 + 16) / MediaQuery.of(context).size.width,
+                ),
+                pageSnapping: true,
+                padEnds: false,
                 itemCount: comingSoon.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: EdgeInsets.only(
-                      left: index == 0 ? 16 : 0,
-                      right: 16,
+                    padding: const EdgeInsets.only(
+                      left: 16,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
