@@ -20,12 +20,12 @@ class MoviePoster extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Image.network(
-        'https://image.tmdb.org/t/p/w300${movie.posterPath}',
+        'https://image.tmdb.org/t/p/${hideTitle ? 'w400' : 'w300'}${movie.posterPath}',
         width: width,
         height: height,
         fit: BoxFit.cover,
-        cacheWidth: (width * 1.5).toInt(),
-        cacheHeight: (height * 2).toInt(),
+        cacheWidth: (width * 2).toInt(),
+        cacheHeight: (height * 3).toInt(),
         alignment: Alignment.topCenter,
         semanticLabel: movie.title,
         errorBuilder: (context, error, stackTrace) {
