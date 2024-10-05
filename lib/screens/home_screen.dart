@@ -97,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
               itemHeight: 160,
               onTap: toMovieDetailScreen,
             ),
+            const SizedBox(height: 32),
           ],
         ),
       ),
